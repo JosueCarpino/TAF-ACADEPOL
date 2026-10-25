@@ -1,11 +1,5 @@
 # Painel TAF ACADEPOL + COP
 
-## Planejador Financeiro PCESP
-
-**Simulador:** https://josuecarpino.github.io/TAF-ACADEPOL/financeiro/
-
-**Guia de sincronização e uso:** [financeiro/README.md](./financeiro/README.md). O simulador compara manter contratos e consolidar dívidas, projeta fluxo de caixa, registra lançamentos e permite backup local. Os dados financeiros não são inseridos no GitHub. O novo caminho `users/{uid}/finance/{id}` exige **publicar a versão atual** de [firestore.rules](./firestore.rules) no Console do Firebase; somente fazer commit não muda as regras remotas.
-
 **Painel (GitHub Pages):** https://josuecarpino.github.io/TAF-ACADEPOL/
 
 ## Estado da configuração
