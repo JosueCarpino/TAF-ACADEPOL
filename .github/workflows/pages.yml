@@ -9,7 +9,6 @@ on:
       - "evolution.js"
       - "evolution.css"
       - "firebase-config.js"
-      - "financeiro/**"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
@@ -31,20 +30,12 @@ jobs:
     steps:
       - name: Baixar arquivos
         uses: actions/checkout@v4
-      - name: Verificar simulador financeiro
-        run: |
-          node --check financeiro/app.js
-          node --check financeiro/cloud.js
-          node financeiro/verify.cjs
       - name: Separar somente arquivos publicos
         run: |
           mkdir -p public
           cp index.html cloud.js firebase-config.js evolution.js evolution.css public/
-          cp -R financeiro public/
           touch public/.nojekyll
           test ! -e public/TAF_HISTORICO_PRIVADO_OUTUBRO_2026.csv
-          rm -f public/financeiro/verify.cjs public/financeiro/README.md
-          test ! -e public/financeiro/verify.cjs
       - name: Configurar GitHub Pages
         uses: actions/configure-pages@v5
       - name: Enviar artefato publico
