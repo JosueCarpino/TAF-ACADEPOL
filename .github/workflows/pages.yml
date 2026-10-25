@@ -1,0 +1,45 @@
+name: Publicar painel TAF (GitHub Pages)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "index.html"
+      - "cloud.js"
+      - "firebase-config.js"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Baixar arquivos
+        uses: actions/checkout@v4
+      - name: Separar somente arquivos publicos
+        run: |
+          mkdir -p public
+          cp index.html cloud.js firebase-config.js public/
+          touch public/.nojekyll
+          test ! -e public/TAF_HISTORICO_PRIVADO_OUTUBRO_2026.csv
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Enviar artefato publico
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./public
+      - name: Publicar no GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
