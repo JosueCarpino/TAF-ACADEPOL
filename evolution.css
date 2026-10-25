@@ -1,0 +1,41 @@
+/* Evolução TAF v8.5 – usa somente registros presentes no navegador/Firestore */
+.evo-head{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:13px}
+.evo-head h2{margin:0}
+.evo-countdown{font-size:12px;border:1px solid #3e617a;border-radius:99px;background:#153650;color:#bce8ff;padding:8px 12px;font-weight:700}
+.evo-goals{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:16px 0}
+.evo-goal-card,.evo-chart-card{background:linear-gradient(165deg,#142b41,#101f30);border:1px solid #39536d;border-radius:14px;padding:17px;min-width:0}
+.evo-card-top{display:flex;align-items:start;justify-content:space-between;gap:9px;flex-wrap:wrap}
+.evo-card-top h3{font-size:14px;color:#e4f0ff;line-height:1.35;margin:0}
+.evo-target{font-size:11px;color:#a7bdd0}
+.evo-big{font-size:clamp(21px,2vw,30px);font-weight:800;margin:13px 0 3px}
+.evo-small{font-size:12px;color:#a8bdd0;line-height:1.45}
+.evo-bar{height:10px;border-radius:100px;overflow:hidden;background:#30445e;margin:13px 0 8px}
+.evo-bar span{display:block;height:100%;border-radius:100px;transition:width .3s}
+.evo-stats{display:flex;justify-content:space-between;gap:9px;font-size:12px;color:#deebf9}
+.evo-ref{border-top:1px solid #2d445d;padding-top:10px;margin-top:13px;color:#b5ccdf;font-size:12px;line-height:1.5}
+.evo-chart-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.evo-chart-heading{display:flex;justify-content:space-between;gap:8px;align-items:center}
+.evo-chart-heading h3{margin:0}
+.evo-chart-heading span{font-size:12px;color:#a6bbd0}
+.evo-svg{width:100%;height:auto;display:block;min-height:160px}
+.evo-empty{padding:32px 12px;text-align:center;color:#bbcee0;font-size:13px;min-height:180px;display:grid;place-items:center}
+.evo-stat-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:14px 0}
+.evo-stat{background:#0b1e30;border:1px solid #314761;border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:5px}
+.evo-stat span{font-size:12px;color:#adbed0}
+.evo-stat strong{font-size:19px;color:#eaf5ff}
+.evo-alert{border:1px solid #456079;background:#142b40;padding:11px 14px;border-radius:10px;margin:9px 0}
+.evo-alert p{font-size:12px;margin:5px 0 0;color:#cdddeb}
+.evo-alert.high{background:#39232a;border-color:#b76a75}
+.evo-alert.medium{background:#382d21;border-color:#ae8553}
+.evo-alert.neutral{background:#1b3041;border-color:#3e6278}
+.evo-weeks{height:183px;display:grid;grid-template-columns:repeat(8,1fr);gap:8px;margin:14px 0 6px}
+.evo-week{display:flex;flex-direction:column;min-width:0;align-items:center;gap:4px}
+.evo-week-value{font-size:11px;color:#d0e1ef;white-space:nowrap}
+.evo-column-track{width:100%;height:129px;background:#1a3045;border-radius:6px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+.evo-column{background:linear-gradient(180deg,#57bce9,#2476a6);border-radius:5px 5px 2px 2px;min-height:0;width:100%}
+.evo-column.missing{background:repeating-linear-gradient(45deg,#435c71,#435c71 5px,#284053 5px,#284053 10px)}
+.evo-week-label{color:#b5c8d9;font-size:11px}
+.evo-records{min-width:600px!important}
+@media(max-width:1020px){.evo-goals{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:720px){.evo-chart-grid{grid-template-columns:1fr}}
+@media(max-width:480px){.evo-goals{grid-template-columns:1fr}.evo-stat-grid{grid-template-columns:1fr}.evo-weeks{gap:4px}.evo-week-label,.evo-week-value{font-size:9px}}
