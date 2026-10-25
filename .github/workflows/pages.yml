@@ -9,6 +9,7 @@ on:
       - "evolution.js"
       - "evolution.css"
       - "firebase-config.js"
+      - "financeiro/**"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
@@ -34,6 +35,7 @@ jobs:
         run: |
           mkdir -p public
           cp index.html cloud.js firebase-config.js evolution.js evolution.css public/
+          cp -R financeiro public/
           touch public/.nojekyll
           test ! -e public/TAF_HISTORICO_PRIVADO_OUTUBRO_2026.csv
       - name: Configurar GitHub Pages
