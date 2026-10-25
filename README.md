@@ -29,3 +29,15 @@ O painel é HTML/JavaScript puro em GitHub Pages, e `cloud.js` já importa o SDK
 Este repositório público contém apenas o código. A configuração Web do Firebase é pública por natureza, mas **não concede autorização de leitura** aos dados: acesso é controlado por Authentication e Security Rules. Não compartilhe nem publique CSV com dados pessoais, senhas, tokens ou credenciais de conta de serviço. Enquanto não confirmar a sincronização, mantenha os backups CSV e os dados locais.
 
 [Status do deploy](https://github.com/JosueCarpino/TAF-ACADEPOL/actions/workflows/pages.yml).
+
+## Painel de evolução v8.5 (25/10/2026)
+
+Na aba **Evolução**, os registros privados já existentes (locais e sincronizados do Firestore) alimentam:
+
+- Gráficos individuais de **flexões**, **abdominais ACADEPOL**, **agachamentos** e **Cooper 12 minutos**; cada prova só considera seu próprio campo, evitando mistura com abdominal COP.
+- Última marca, **melhor resultado registrado**, data do recorde, distância à meta principal e progresso percentual.
+- Quilometragem total registrada (**treino paralelo + ACADEPOL**) nas últimas oito semanas, com indicação de semanas sem registros.
+- Sinais conservadores dos últimos sete dias: dor ≥4/10, piora em 24 horas, dor 3/10, muitas sessões RPE ≥8 e variações de quilometragem quando há registros comparáveis.
+- Janela de fevereiro de 2027; se a data do TAF for confirmada na aba **Treino adaptativo**, exibe a contagem para a prova.
+
+A evolução é recalculada automaticamente ao buscar/importar dados no Firebase; **não modifica esquema ou regras do Firestore**. Os alertas são orientativos, não diagnóstico médico. A falta de dados não é interpretada como descanso.
