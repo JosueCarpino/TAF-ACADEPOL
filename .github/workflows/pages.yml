@@ -6,6 +6,8 @@ on:
     paths:
       - "index.html"
       - "cloud.js"
+      - "evolution.js"
+      - "evolution.css"
       - "firebase-config.js"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
@@ -31,7 +33,7 @@ jobs:
       - name: Separar somente arquivos publicos
         run: |
           mkdir -p public
-          cp index.html cloud.js firebase-config.js public/
+          cp index.html cloud.js firebase-config.js evolution.js evolution.css public/
           touch public/.nojekyll
           test ! -e public/TAF_HISTORICO_PRIVADO_OUTUBRO_2026.csv
       - name: Configurar GitHub Pages
