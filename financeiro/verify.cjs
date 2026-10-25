@@ -8,7 +8,7 @@ const els=new Map();
 const get=id=>{
  if(!els.has(id))els.set(id,{
   id,value:'',innerHTML:'',textContent:'',hidden:false,className:'',
-  addEventListener(){},setAttribute(){},append(){},remove(){},
+  listeners:{},addEventListener(type,cb){this.listeners[type]=cb;},setAttribute(){},append(){},remove(){},
  });
  return els.get(id);
 };
@@ -43,13 +43,15 @@ assert.match(get('scenarioCards').innerHTML,/Consolidar caras/);
 assert.match(get('scenarioCards').innerHTML,/Consolidar tudo/);
 assert.match(firstRow()[4],/740,00/,'Manter deve descontar 3 parcelas e gastos do mes 1');
 function changeScenario(kind){
- const events= new Map();
- const old=get('scenarioCards').addEventListener;
- get('scenarioCards').addEventListener=(type,cb)=>events.set(type,cb);
- // Troca de cenario ocorre via handler capturado no carregamento: simular delegacao?
+ get('scenarioCards').listeners.click({target:{closest:()=>({dataset:{scenario:kind}})}});
 }
+changeScenario('expensive');
+assert.match(firstRow()[4],/790,00/,'Consolidacao parcial deve manter a parcela do Bradesco antigo');
+assert.match(get('cashflow').innerHTML,/Parcela do Bradesco antigo/);
+changeScenario('all');
+assert.match(firstRow()[4],/600,00/,'Consolidacao total deve quitar 1000 com credito de 800');
+changeScenario('keep');
 const btn=get('scenarioCards');
-// O teste precisa capturar os event handlers registrados no arranque.
 assert.ok(btn.innerHTML.includes('data-scenario="expensive"'));
 assert.match(get('cashflow').innerHTML,/Parcelas dos 3 contratos/);
 assert.ok(app.get().premises.nubBal===500);
