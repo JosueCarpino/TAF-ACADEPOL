@@ -19,23 +19,28 @@ O projeto Firebase `taf-acadepol` e o aplicativo Web foram criados pelo propriet
 2. Se houver escolha de edição, escolha **Standard**. Use o banco **(default)**.
 3. Escolha região próxima e compatível com o plano e as suas preferências; a localização é difícil de alterar depois.
 4. Selecione **Start in production mode** (regras iniciais restritivas). Nunca use o modo de teste aberto para dados privados.
-5. Depois de criar, abra a aba **Rules**, cole o conteúdo **integral e atualizado** de `firestore.rules` deste repositório e clique em **Publish**. A coleção financeira `users/{uid}/finance/{id}` foi adicionada; a regra antiga abaixo é apenas uma ilustração e NÃO deve substituir o arquivo atual:
+5. Depois de criar, abra a aba **Rules**, cole o conteúdo **integral e atualizado** de `firestore.rules` deste repositório e clique em **Publish**. A coleção financeira `users/{uid}/finance/{id}` foi adicionada; o bloco abaixo contém a versão integral atual (confirme sempre o conteúdo do arquivo no GitHub antes de publicar):
 
 ```rules
 rules_version = '2';
 service cloud.firestore {
-  match /databases/{database}/documents {
-    match /users/{uid}/logs/{id} {
-      allow read, write: if request.auth != null && request.auth.uid == uid;
-    }
-    match /users/{uid}/settings/{id} {
-      allow read, write: if request.auth != null && request.auth.uid == uid;
-    }
+ match /databases/{database}/documents {
+  match /users/{uid}/logs/{id} { allow read, write: if request.auth != null && request.auth.uid == uid; }
+  match /users/{uid}/settings/{id} { allow read, write: if request.auth != null && request.auth.uid == uid; }
+  // Dados financeiros isolados de cada usuario autenticado.
+  match /users/{uid}/finance/{id} {
+   allow read: if request.auth != null && request.auth.uid == uid;
+   allow create, update: if request.auth != null && request.auth.uid == uid
+    && request.resource.data.keys().hasOnly(['schemaVersion', 'payload', 'updatedAt'])
+    && request.resource.data.schemaVersion == 2
+    && request.resource.data.payload is map;
+   allow delete: if request.auth != null && request.auth.uid == uid;
   }
+ }
 }
 ```
 
-Essas regras (somadas ao bloco de finanças do arquivo atual) permitem cada pessoa autenticada acessar apenas seus próprios documentos. Qualquer outro caminho fica sem permissão. **Para sincronizar o painel financeiro, utilize a versão integral do arquivo atual, e não somente o trecho ilustrativo acima.** Ao publicar, teste as regras no simulador do próprio Firebase.
+Essas regras permitem cada pessoa autenticada acessar apenas seus próprios documentos, incluindo a coleção financeira. Qualquer outro caminho fica sem permissão. **Publique a versão integral de `firestore.rules` no Firebase Console; commits do GitHub não fazem essa etapa automaticamente.** Ao publicar, teste as regras no simulador do próprio Firebase.
 
 ## 4. Conexão Web — já configurada
 
