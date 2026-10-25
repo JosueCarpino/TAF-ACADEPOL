@@ -1,28 +1,31 @@
 # Painel TAF ACADEPOL + COP
 
-**Site publicado:** https://josuecarpino.github.io/TAF-ACADEPOL/
+**Painel (GitHub Pages):** https://josuecarpino.github.io/TAF-ACADEPOL/
 
-O workflow de GitHub Pages concluiu o deploy com sucesso em 25/10/2026. O arquivo `firebase-config.js` **ainda está com `COLE_AQUI`**, portanto login e sincronização na nuvem estão pendentes. Sem Firebase, os treinos são salvos localmente no navegador.
+## Estado da configuração
 
-## Configurar o banco privado
+- GitHub Pages: site publicado anteriormente; atualização automática após commits na branch `main`.
+- Firebase Web SDK: **configuração do projeto `taf-acadepol` adicionada** em `firebase-config.js`.
+- Firebase Authentication (Google): **precisa ser ativado ou confirmado no console do Firebase**.
+- Cloud Firestore (Standard, banco `(default)`): **precisa ser criado ou confirmado**, e as regras de `firestore.rules` precisam ser **publicadas no console**.
+- Sincronização real de dados: **ainda não verificada**; só considere ativa depois de testar login, gravação e leitura em outro dispositivo.
 
-Siga o guia específico, com todos os links, etapas, regras e testes:
+## Finalizar o Firebase — clique a clique
 
-**[FIREBASE_SETUP.md](./FIREBASE_SETUP.md)**
+Leia **[FIREBASE_SETUP.md](./FIREBASE_SETUP.md)**. Use o projeto existente `taf-acadepol`; não crie outro projeto. As tarefas pendentes estão no console:
 
-O Firebase pode ser configurado pelo [console oficial](https://console.firebase.google.com/) mesmo que a integração Firebase no ChatGPT tenha apresentado erro. Crie o projeto Spark, ative o provedor Google no Authentication, crie o Firestore em modo de produção, publique `firestore.rules` e inclua a configuração Web em `firebase-config.js`.
+1. [Ativar Google Authentication](https://console.firebase.google.com/project/taf-acadepol/authentication/providers) e autorizar o domínio `josuecarpino.github.io`.
+2. [Criar/abrir banco Firestore](https://console.firebase.google.com/project/taf-acadepol/firestore) (Standard, `(default)`).
+3. [Regras do Firestore](https://console.firebase.google.com/project/taf-acadepol/firestore/rules): copiar de `firestore.rules`, **Publish**.
+4. Acessar o painel, entrar com Google, importar o CSV privado e selecionar **Enviar dados locais para nuvem**.
+5. Em outro dispositivo, entrar com a mesma conta e conferir a leitura. Exportar backup CSV.
 
-## Código e segurança
+## Sobre npm / Firebase CLI
 
-- `index.html`: painel visual e rotinas de registro.
-- `cloud.js`: integração com Firebase Authentication e Firestore.
-- `firebase-config.js`: configuração pública do SDK Web, ainda pendente.
-- `firestore.rules`: acesso permitido apenas ao UID autenticado, na pasta de dados dele.
-- `.github/workflows/pages.yml`: publica somente os arquivos web, excluindo os dados pessoais.
-- **Nunca** envie CSV de histórico, credenciais privadas ou arquivos de conta de serviço para este repositório público.
+O painel é HTML/JavaScript puro em GitHub Pages, e `cloud.js` já importa o SDK via CDN. **Não há necessidade de `npm install`, `firebase init` ou `firebase deploy`**, nem de Firebase Hosting.
 
-## Links
+## Segurança
 
-- [Site](https://josuecarpino.github.io/TAF-ACADEPOL/)
-- [Status das publicações](https://github.com/JosueCarpino/TAF-ACADEPOL/actions/workflows/pages.yml)
-- [Configuração do Firebase](./FIREBASE_SETUP.md)
+Este repositório público contém apenas o código. A configuração Web do Firebase é pública por natureza, mas **não concede autorização de leitura** aos dados: acesso é controlado por Authentication e Security Rules. Não compartilhe nem publique CSV com dados pessoais, senhas, tokens ou credenciais de conta de serviço. Enquanto não confirmar a sincronização, mantenha os backups CSV e os dados locais.
+
+[Status do deploy](https://github.com/JosueCarpino/TAF-ACADEPOL/actions/workflows/pages.yml).
