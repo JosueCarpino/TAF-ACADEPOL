@@ -1,14 +1,10 @@
 # Configurar Firebase: painel TAF ACADEPOL
 
-**Estado verificado em 25/10/2026:** GitHub Pages publicado com sucesso em https://josuecarpino.github.io/TAF-ACADEPOL/ . O banco **ainda não foi ativado**: os campos de `firebase-config.js` continuam `COLE_AQUI`. O aplicativo continua utilizável no modo local.
+**Estado verificado em 25/10/2026:** GitHub Pages publicado com sucesso em https://josuecarpino.github.io/TAF-ACADEPOL/ . A configuração Web do projeto Firebase `taf-acadepol` **já foi aplicada** ao arquivo `firebase-config.js` e publicada com sucesso. Ainda **não foi possível verificar** se Authentication (Google), Firestore (default) e as regras de acesso estão ativados. Enquanto não houver confirmação de login e de gravação/leitura, não presuma que os registros estejam sincronizados.
 
-## 1. Criar projeto (somente pelo proprietário da conta Google)
+## 1. Projeto e aplicativo Web — concluídos
 
-1. Acesse https://console.firebase.google.com/ e entre na sua conta Google.
-2. Clique em **Criar projeto**. Sugestão de nome: **TAF ACADEPOL**.
-3. Mantenha o plano **Spark (gratuito)**. Analytics é opcional para este aplicativo.
-4. Após criar, no painel do projeto, clique no ícone Web **</>** para adicionar um app. Nome sugerido: **taf-acadepol-web**. **Não marque Firebase Hosting** (a hospedagem já é GitHub Pages).
-5. Copie a configuração do SDK Web, com `apiKey`, `authDomain`, `projectId` e `appId`. Essa configuração pública de cliente **não é uma senha**; porém, **não compartilhe chaves de conta de serviço, arquivos JSON privados nem tokens**.
+O projeto Firebase `taf-acadepol` e o aplicativo Web foram criados pelo proprietário, que forneceu a configuração Web. A configuração foi adicionada ao site do GitHub Pages; **não execute npm install, firebase init, firebase deploy nem ative Firebase Hosting** para esse painel.
 
 ## 2. Ativar login com Google
 
@@ -41,33 +37,9 @@ service cloud.firestore {
 
 Essas regras permitem cada pessoa autenticada acessar apenas seus próprios documentos. Qualquer outro caminho fica sem permissão. Ao publicar, teste as regras no simulador do próprio Firebase.
 
-## 4. Ligar Firebase ao aplicativo GitHub
+## 4. Conexão Web — já configurada
 
-O projeto deve fornecer a configuração Web no formato abaixo (exemplo, não valores reais):
-
-```js
-const firebaseConfig = {
-  apiKey: "AIza...",
-  authDomain: "meu-projeto.firebaseapp.com",
-  projectId: "meu-projeto",
-  storageBucket: "meu-projeto.firebasestorage.app",
-  messagingSenderId: "123456789",
-  appId: "1:123456789:web:abcdef"
-};
-```
-
-Transcreva os quatro campos necessários para `firebase-config.js`:
-
-```js
-window.TAF_FIREBASE_CONFIG = {
-  apiKey: "...",
-  authDomain: "...",
-  projectId: "...",
-  appId: "..."
-};
-```
-
-**Atenção:** após editar e confirmar o commit, o GitHub Actions publicará novamente o app. Verifique o status em https://github.com/JosueCarpino/TAF-ACADEPOL/actions/workflows/pages.yml .
+O arquivo `firebase-config.js` foi atualizado e publicado. **Não é necessário reenviar as chaves de configuração**. A sincronização só funcionará depois que Google Authentication estiver ativo e o banco Firestore existir com as regras publicadas.
 
 ## 5. Primeira sincronização e teste entre dispositivos
 
@@ -78,7 +50,7 @@ window.TAF_FIREBASE_CONFIG = {
 5. Em outro dispositivo, abra o mesmo site, entre com a mesma conta e clique **Buscar dados da nuvem**.
 6. Confira os valores e faça **Exportar CSV** para ter backup offline periódico.
 
-Se aparecer `permission-denied`, reveja as regras e a conta Google. Se aparecer `auth/unauthorized-domain`, confira o domínio autorizado. Se o site indicar `COLE_AQUI`, a configuração ainda não foi publicada.
+Se aparecer `permission-denied`, reveja as regras e a conta Google. Se aparecer `auth/unauthorized-domain`, confira o domínio autorizado. Se o site indicar modo local sem Firebase, atualize o navegador sem cache e confirme a publicação no GitHub Actions.
 
 ## Segurança
 
