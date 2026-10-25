@@ -3,14 +3,5 @@ service cloud.firestore {
  match /databases/{database}/documents {
   match /users/{uid}/logs/{id} { allow read, write: if request.auth != null && request.auth.uid == uid; }
   match /users/{uid}/settings/{id} { allow read, write: if request.auth != null && request.auth.uid == uid; }
-  // Dados financeiros isolados de cada usuario autenticado.
-  match /users/{uid}/finance/{id} {
-   allow read: if request.auth != null && request.auth.uid == uid;
-   allow create, update: if request.auth != null && request.auth.uid == uid
-    && request.resource.data.keys().hasOnly(['schemaVersion', 'payload', 'updatedAt'])
-    && request.resource.data.schemaVersion == 2
-    && request.resource.data.payload is map;
-   allow delete: if request.auth != null && request.auth.uid == uid;
-  }
  }
 }
