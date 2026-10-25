@@ -1,15 +1,30 @@
 # Painel TAF ACADEPOL + COP
 
-O site é público, mas **nenhum histórico pessoal deve estar no repositório**. Até configurar o Firebase, os registros ficam no navegador. Exporte backups CSV.
+Repositório público de código. **Não publique dados de treinos, saúde ou CSVs neste repositório.**
 
-## Ativar GitHub Pages
-Settings → Pages → Deploy from a branch → main → /(root) → Save.
+## Estado atual
 
-## Configurar Firebase
-1. Crie projeto gratuito Spark em https://console.firebase.google.com e adicione um aplicativo Web.
-2. Copie os campos da configuração Web para `firebase-config.js` (nunca use conta de serviço ou chave privada).
-3. Ative Firebase Authentication → Google e autorize o domínio `josuecarpino.github.io`.
-4. Crie o Firestore e **publique** as regras incluídas em `firestore.rules` antes de inserir dados.
-5. Entre com Google na aba Registros. Importe o arquivo CSV pessoal separadamente e selecione Enviar dados locais para nuvem.
+O GitHub Actions de publicação já existe em `.github/workflows/pages.yml`, mas o primeiro deploy não avançou porque o GitHub Pages ainda não havia sido habilitado. A configuração do Firebase também está pendente.
 
-A publicação do repositório no Pages e a configuração do projeto Firebase dependem de acesso às configurações dessas plataformas. Não publique registros pessoais no GitHub.
+## Publicar site no GitHub Pages (uma vez)
+
+1. Abra https://github.com/JosueCarpino/TAF-ACADEPOL/settings/pages
+2. Em **Build and deployment → Source**, escolha **GitHub Actions** (não 'Deploy from a branch').
+3. Salve a alteração, se solicitado.
+4. Abra https://github.com/JosueCarpino/TAF-ACADEPOL/actions/workflows/pages.yml
+5. Clique em **Run workflow**, selecione **main** e confirme. O workflow também será executado automaticamente em futuras atualizações dos arquivos publicados.
+6. Quando aparecer **success**, acesse https://josuecarpino.github.io/TAF-ACADEPOL/
+
+A etapa de habilitação do Pages requer acesso às configurações do repositório. O token padrão de GitHub Actions não pode habilitar Pages sozinho.
+
+## Sincronização na nuvem: Firebase (opcional, ainda não ativado)
+
+O plugin do Firebase no ChatGPT não é necessário; use o console oficial. Enquanto estiver desativado, o painel salva apenas no navegador do dispositivo. Exportações CSV continuam importantes.
+
+1. Em https://console.firebase.google.com, crie um projeto Spark gratuito e adicione um aplicativo Web.
+2. Em **Authentication → Sign-in method**, ative Google; inclua `josuecarpino.github.io` em **Authorized domains**.
+3. Crie o Cloud Firestore, publique as regras contidas em `firestore.rules` (sem alterá-las para acesso público).
+4. Copie somente os parâmetros da **configuração Web** do projeto para `firebase-config.js` (não use chave de conta de serviço, token privado ou senha).
+5. No painel, entre com Google, importe o CSV privado e escolha **Enviar dados locais para nuvem**. Confira os registros em um segundo dispositivo antes de considerar a migração concluída.
+
+O arquivo de CSV particular e o histórico pessoal não estão no repositório. Recomendado manter backups CSV periódicos.
