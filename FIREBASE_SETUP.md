@@ -19,7 +19,7 @@ O projeto Firebase `taf-acadepol` e o aplicativo Web foram criados pelo propriet
 2. Se houver escolha de edição, escolha **Standard**. Use o banco **(default)**.
 3. Escolha região próxima e compatível com o plano e as suas preferências; a localização é difícil de alterar depois.
 4. Selecione **Start in production mode** (regras iniciais restritivas). Nunca use o modo de teste aberto para dados privados.
-5. Depois de criar, abra a aba **Rules**, cole o conteúdo de `firestore.rules` deste repositório e clique em **Publish**:
+5. Depois de criar, abra a aba **Rules**, cole o conteúdo **integral e atualizado** de `firestore.rules` deste repositório e clique em **Publish**. A coleção financeira `users/{uid}/finance/{id}` foi adicionada; a regra antiga abaixo é apenas uma ilustração e NÃO deve substituir o arquivo atual:
 
 ```rules
 rules_version = '2';
@@ -35,7 +35,7 @@ service cloud.firestore {
 }
 ```
 
-Essas regras permitem cada pessoa autenticada acessar apenas seus próprios documentos. Qualquer outro caminho fica sem permissão. Ao publicar, teste as regras no simulador do próprio Firebase.
+Essas regras (somadas ao bloco de finanças do arquivo atual) permitem cada pessoa autenticada acessar apenas seus próprios documentos. Qualquer outro caminho fica sem permissão. **Para sincronizar o painel financeiro, utilize a versão integral do arquivo atual, e não somente o trecho ilustrativo acima.** Ao publicar, teste as regras no simulador do próprio Firebase.
 
 ## 4. Conexão Web — já configurada
 
